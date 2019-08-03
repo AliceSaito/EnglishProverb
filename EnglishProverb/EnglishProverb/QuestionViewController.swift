@@ -119,7 +119,7 @@ class QuestionViewController: UIViewController {
                 // 例えば不正解のindexが　こんな感じで[1, 2, 4]保存されたとする
                 
 //                for value in array {
-//
+//  これはテストです。キム先生。
 //                }
                 
             
