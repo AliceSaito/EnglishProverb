@@ -108,26 +108,20 @@ class QuestionViewController: UIViewController {
             // 正解の場合はここに入る
             // 1. ⭕️ボタンのイメージを設定する
             // 2. ⭕️ボタンを表示する
-            
-            let model = currentProverbModelArr[questionIndex]
-
             resultButton.setBackgroundImage(UIImage.init(named: "maru"), for: UIControl.State.normal)
             // Boolenとは trueかfalseこの二つのタイプしか設定できないデータタイプ
             // 例）let varlue： Bool ＝ true
             resultButton.isHidden = false
         
             // 再テストで不正解だった問題が正解になった時
-            
+            let proverbModel =  self.questionPageModel!//currentProverbModelArr[questionIndex]
+
             if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
                 // 例えば不正解のindexが　こんな感じで[1, 2, 4]保存されたとする
-                print("oldIncorrectArr: \(oldIncorrectArr)")
-                for (index, incorrectIndex) in oldIncorrectArr.enumerated() {
+                for (index, incorrectNumber) in oldIncorrectArr.enumerated() {
                     
-                    print("index: \(index)")
-                    print("incorrectIndex: \(incorrectIndex)")
-                    
-                    if incorrectIndex == model.number {
+                    if incorrectNumber == proverbModel.number {
                         // 以前不正解だったindexが今回は正解となったためArrayから削除する
                         oldIncorrectArr.remove(at: index)
                     }
@@ -146,15 +140,17 @@ class QuestionViewController: UIViewController {
             resultButton.setBackgroundImage(UIImage.init(named: "batsu"), for: UIControl.State.normal)
             resultButton.isHidden = false
 
-            let model = currentProverbModelArr[questionIndex]
-            let questionNumber = model.number
+            let proverbmodel = currentProverbModelArr[questionIndex]
+            let questionNumber = proverbmodel.number
             
             // 不正解の時問題のIndexをArrayに入れてUserDefaultに保存する
             
-            // 以前UserDefaultに保存された不正解のArrayがある場合
+            // 以前UserDefaultに保存された不正解のArrayがある場合既存のArrayに今のnumberを追加(append)する
             if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
+                // 以前間違ったnumberがoldIncorrectArrに保存されていたらこのnumberは追加しない
                 if oldIncorrectArr.contains(questionNumber) == false {
+                    
                     oldIncorrectArr.append(questionNumber)
                     UserDefaults.standard.set(oldIncorrectArr, forKey: "Incorrectagain")
                 }
