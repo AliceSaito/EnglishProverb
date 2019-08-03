@@ -114,29 +114,20 @@ class QuestionViewController: UIViewController {
             resultButton.isHidden = false
         
             // 再テストで不正解だった問題が正解になった時
-            
-            if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<Int> {
+            let proverbModel =  self.questionPageModel!//currentProverbModelArr[questionIndex]
+
+            if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
                 // 例えば不正解のindexが　こんな感じで[1, 2, 4]保存されたとする
-                
-//                for value in array {
-//                }
-                
-            
-                for (index, incorrectIndex) in oldIncorrectArr.enumerated() {
+                for (index, incorrectNumber) in oldIncorrectArr.enumerated() {
                     
-                    print("index: \(index)")
-                    print("incorrectIndex: \(incorrectIndex)")
-                    
-                    if incorrectIndex == self.questionIndex {
-                        
+                    if incorrectNumber == proverbModel.number {
                         // 以前不正解だったindexが今回は正解となったためArrayから削除する
                         oldIncorrectArr.remove(at: index)
                     }
                 }
                 
                 UserDefaults.standard.set(oldIncorrectArr, forKey: "Incorrectagain")
-                
             }
             
         }
@@ -144,41 +135,33 @@ class QuestionViewController: UIViewController {
             // 不正解の場合はここに入る
             // 1. ❌ボタンのイメージを設定する
             // 2. ❌ボタンを表示する
+            
+
             resultButton.setBackgroundImage(UIImage.init(named: "batsu"), for: UIControl.State.normal)
             resultButton.isHidden = false
+
+            let proverbmodel = currentProverbModelArr[questionIndex]
+            let questionNumber = proverbmodel.number
             
             // 不正解の時問題のIndexをArrayに入れてUserDefaultに保存する
             
-            // 以前UserDefaultに保存された不正解のArrayがある場合
-            if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<Int> {
+            // 以前UserDefaultに保存された不正解のArrayがある場合既存のArrayに今のnumberを追加(append)する
+            if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
-                oldIncorrectArr.append(questionIndex)
-                UserDefaults.standard.set(oldIncorrectArr, forKey: "Incorrectagain")
+                // 以前間違ったnumberがoldIncorrectArrに保存されていたらこのnumberは追加しない
+                if oldIncorrectArr.contains(questionNumber) == false {
+                    
+                    oldIncorrectArr.append(questionNumber)
+                    UserDefaults.standard.set(oldIncorrectArr, forKey: "Incorrectagain")
+                }
             }
             // UserDefaultに不正解のArrayが保存されていない場合
             else {
-                var incorrectArr: Array<Int> = []
-                incorrectArr.append(questionIndex)
+                var incorrectArr: Array<String> = []
+                incorrectArr.append(questionNumber)
                 
                 UserDefaults.standard.set(incorrectArr, forKey: "Incorrectagain")
             }
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
- 
 }

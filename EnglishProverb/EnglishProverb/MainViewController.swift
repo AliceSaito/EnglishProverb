@@ -55,7 +55,7 @@ class MainViewController: UIViewController {
             proverbModelArr.append(choco)
         }
         
-        if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<Int> {
+        if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
             
             if incorrectArr.count > 0 {
                 
@@ -83,37 +83,33 @@ class MainViewController: UIViewController {
         }
         else if segue.identifier == "repeatButtonSegue" {
             
-            if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<Int> {
+            if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
                 if incorrectArr.count > 0 {
                     
-                    let inCorrectPage = incorrectArr[0]
+                    let incorrectPage = incorrectArr[0]
                     
-                    vc?.questionIndex = inCorrectPage
-                    vc?.questionPageModel = proverbModelArr[inCorrectPage]
+                    if let number = Int(incorrectPage) {
+                        
+                        vc?.questionIndex = 0
+                        let index = number - 1
+                        vc?.questionPageModel = proverbModelArr[index]
+                    }
                     
-                    // 間違った問題しか入っていないArrayを設定する
-                    
-                    if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<Int> {
-                     
-                        // ここには間違った問題のPage番号がArrayに入っている
-
-                        // MapはArrayの中身を他のTypeで変換して返すことができる
-                        // 返された値は別のArrayに格納されて返される
-//                        let newIncorrectArray: [ProverbModel] = incorrectArr.map { (index) -> ProverbModel in
-//
-//                                                                return proverbModelArr[index]
-//                                                            }
-
-                        var incorrectProverbArray: [ProverbModel] = []
-                        for index in incorrectArr {
-
+                    var incorrectProverbArray: [ProverbModel] = []
+                    for pageNumber in incorrectArr {
+                        
+                        if let number = Int(pageNumber) {
+                            
+                            let index = number - 1
                             let model = proverbModelArr[index]
                             incorrectProverbArray.append(model)
+                            
                         }
-                        
-                        vc?.currentProverbModelArr = incorrectProverbArray                        
                     }
+                    
+                    vc?.currentProverbModelArr = incorrectProverbArray
+
                 }
                 
             }

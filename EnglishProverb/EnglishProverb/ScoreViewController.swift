@@ -41,7 +41,7 @@ class ScoreViewController: UIViewController {
         }
                 
         
-        if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<Int> {
+        if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
             
             //            incorrectArr.count
             
