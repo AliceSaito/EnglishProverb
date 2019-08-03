@@ -88,20 +88,21 @@ class MainViewController: UIViewController {
                 if incorrectArr.count > 0 {
                     
                     let incorrectPage = incorrectArr[0]
-
                     
-                    if let index = Int(incorrectPage) {
+                    if let number = Int(incorrectPage) {
                         
                         vc?.questionIndex = 0
-                        vc?.questionPageModel = proverbModelArr[index - 1]
+                        let index = number - 1
+                        vc?.questionPageModel = proverbModelArr[index]
                     }
-
                     
                     var incorrectProverbArray: [ProverbModel] = []
                     for pageNumber in incorrectArr {
                         
-                        if let index = Int(pageNumber) {
-                            let model = proverbModelArr[index - 1]
+                        if let number = Int(pageNumber) {
+                            
+                            let index = number - 1
+                            let model = proverbModelArr[index]
                             incorrectProverbArray.append(model)
                             
                         }
