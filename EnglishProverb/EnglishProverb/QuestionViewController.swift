@@ -65,7 +65,7 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        indexLabel.text = "Q" + (questionPageModel?.number ?? "")
+        indexLabel.text = "Q " + (questionPageModel?.number ?? "")
         
         let questionEn = questionPageModel?.questionEn ?? ""
         let correct = questionPageModel?.correct ?? ""
