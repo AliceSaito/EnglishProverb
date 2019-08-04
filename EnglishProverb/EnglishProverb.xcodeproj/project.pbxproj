@@ -39,7 +39,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		B65803FB22D9C94300985BD2 /* EnglishProverb.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EnglishProverb.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B65803FB22D9C94300985BD2 /* 英語でコトワザ.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "英語でコトワザ.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B65803FE22D9C94300985BD2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B658040022D9C94300985BD2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		B658040322D9C94300985BD2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -97,7 +97,7 @@
 		B65803FC22D9C94300985BD2 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B65803FB22D9C94300985BD2 /* EnglishProverb.app */,
+				B65803FB22D9C94300985BD2 /* 英語でコトワザ.app */,
 				B658040F22D9C94500985BD2 /* EnglishProverbTests.xctest */,
 				B658041A22D9C94500985BD2 /* EnglishProverbUITests.xctest */,
 			);
@@ -157,7 +157,7 @@
 			);
 			name = EnglishProverb;
 			productName = EnglishProverb;
-			productReference = B65803FB22D9C94300985BD2 /* EnglishProverb.app */;
+			productReference = B65803FB22D9C94300985BD2 /* 英語でコトワザ.app */;
 			productType = "com.apple.product-type.application";
 		};
 		B658040E22D9C94500985BD2 /* EnglishProverbTests */ = {
@@ -453,13 +453,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 87DNQYD756;
 				INFOPLIST_FILE = EnglishProverb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "alice.com-english-proverb.EnglishProverb";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "英語でコトワザ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -470,13 +472,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 87DNQYD756;
 				INFOPLIST_FILE = EnglishProverb/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "alice.com-english-proverb.EnglishProverb";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "英語でコトワザ";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

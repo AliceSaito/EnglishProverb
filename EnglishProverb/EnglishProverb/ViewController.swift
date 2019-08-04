@@ -24,3 +24,17 @@ class ViewController: UIViewController {
 
 }
 
+//extension UIView {
+//
+//    @IBInspectable
+//    var cornerRadius: CGFloat {
+//        
+//        get {
+//            return layer.cornerRadius
+//        }
+//        set {
+//            layer.cornerRadius = cornerRadius
+//        }
+//    }
+// 
+//}
