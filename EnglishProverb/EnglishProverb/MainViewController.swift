@@ -112,26 +112,30 @@ class MainViewController: UIViewController {
                 
 //               stringのnumberをIntに変換して、「number - 1」の計算に使えるようにした
                 if let number = Int(incorrectPage) {
-                    
+
+//                  最初の問題を表示するためのコード
                     vc?.questionIndex = 0
-                    let index = number - 1
-//                   上の処理でindex番号がわかったので、proverbModelArrから間違えた問題を取得する
-                    vc?.questionPageModel = proverbModelArr[index]
+                    //25問のArrayから間違った問題の素材を取得するために、numberを使ってindex番号を出す
+                    let firstQuestionIndex = number - 1
+//                   上の処理でindex番号がわかったので、proverbModelArrから間違えた問題の1番目を取得する
+//                   2問目からはAnswerViewControllerから飛ぶが、 1問目だけはMainViewControllerから飛ぶので、別で取得する必要がある。
+                    vc?.questionPageModel = proverbModelArr[firstQuestionIndex]
                 }
                 
-                // 
+                // 間違った問題だけが入っているArrayをつくるために、変数を設置
                 var incorrectProverbArray: [ProverbModel] = []
                 for pageNumber in incorrectArr {
-                    
+//                    ↑pageNumberはstringなのでいintに変換する↓
                     if let number = Int(pageNumber) {
-                        
+//                        全25問のなかで使われるindexのこと。
                         let index = number - 1
+                        //全25問のArrayから、変数を使って対象となるindexを取得
                         let model = proverbModelArr[index]
+//                        間違った問題だけを↓incorrectProverbArrayに入れる
                         incorrectProverbArray.append(model)
-                        
                     }
                 }
-                
+//                間違った問題だけが入っているArray
                 vc?.currentProverbModelArr = incorrectProverbArray
 
             }
