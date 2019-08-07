@@ -13,7 +13,7 @@
         <!--Main View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="EnglishProverb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="MainViewController" customModule="英語でコトワザ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -129,7 +129,7 @@
         <!--Question View Controller-->
         <scene sceneID="NEK-mn-8BL">
             <objects>
-                <viewController id="1Hu-yF-LoI" customClass="QuestionViewController" customModule="EnglishProverb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="1Hu-yF-LoI" customClass="QuestionViewController" customModule="英語でコトワザ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="XVJ-PZ-ZoG">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +187,7 @@
                                         </connections>
                                     </button>
                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fWa-Ye-g9p">
-                                        <rect key="frame" x="82" y="103.99999999999999" width="250" height="250.00000000000003"/>
+                                        <rect key="frame" x="82" y="104" width="250" height="250"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="250" id="ojp-3h-4Gf"/>
                                             <constraint firstAttribute="height" constant="250" id="yg1-e5-XgG"/>
@@ -245,7 +245,7 @@
         <!--Answer View Controller-->
         <scene sceneID="AO8-OR-oiA">
             <objects>
-                <viewController id="Uvj-Tz-ip0" customClass="AnswerViewController" customModule="EnglishProverb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Uvj-Tz-ip0" customClass="AnswerViewController" customModule="英語でコトワザ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="L8Q-Qp-nuf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -364,7 +364,7 @@
         <!--Score View Controller-->
         <scene sceneID="VhK-kA-jyl">
             <objects>
-                <viewController id="m7l-hq-2R5" customClass="ScoreViewController" customModule="EnglishProverb" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="m7l-hq-2R5" customClass="ScoreViewController" customModule="英語でコトワザ" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Fb5-AG-RhV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -387,7 +387,7 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="40/50" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvu-7y-FMu">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24/25" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mvu-7y-FMu">
                                         <rect key="frame" x="57" y="20" width="300" height="96"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="70"/>
                                         <nil key="textColor"/>
@@ -457,7 +457,7 @@
         <image name="mount-everest" width="783" height="446"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uLG-N4-j50"/>
+        <segue reference="sVn-ld-1sh"/>
         <segue reference="LhF-ox-Acv"/>
     </inferredMetricsTieBreakers>
 </document>
