@@ -21,8 +21,6 @@ class ScoreViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        
 //        コピーしたもの⇩
 //        open class func animate(withDuration duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions = [], animations: @escaping () -> Swift.Void, completion: ((Bool) -> Swift.Void)? = nil)
 
@@ -37,16 +35,13 @@ class ScoreViewController: UIViewController {
                 self.scoreLabel.transform = CGAffineTransform.identity
                 
             })
-            
         }
                 
-        
         if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
             
             //            incorrectArr.count
             
             // "4/ 5"
-//            scorenumber.text = "\(25 - incorrectArr.count)/ 25"
             scoreLabel.text = "\(25 - incorrectArr.count)/ 25"
             
             let correctCount = 25 - incorrectArr.count
