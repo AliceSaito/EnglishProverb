@@ -11,39 +11,38 @@ import UIKit
 class ScoreViewController: UIViewController {
 
     @IBOutlet weak var scoreButton: UIButton!
-    
     @IBOutlet weak var mountainimage: UIImageView!
-
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var scoreclass: UILabel!
     @IBOutlet weak var scorecomment: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        コピーしたもの⇩
-//        open class func animate(withDuration duration: TimeInterval, delay: TimeInterval, usingSpringWithDamping dampingRatio: CGFloat, initialSpringVelocity velocity: CGFloat, options: UIViewAnimationOptions = [], animations: @escaping () -> Swift.Void, completion: ((Bool) -> Swift.Void)? = nil)
+//        open class func animate(withDuration(アニメーションの長さ) duration: TimeInterval, delay(アニメーションが始まるまでの時間の長さ): TimeInterval, usingSpringWithDamping（動かす度合い） dampingRatio: CGFloat, initialSpringVelocity（動く速さ）  velocity: CGFloat, options: UIViewAnimationOptions = [], animations: @escaping () -> Swift.Void, completion: ((Bool) -> Swift.Void)? = nil)
 
-        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [.repeat], animations: {
+        UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [UIView.AnimationOptions.repeat], animations: {
             
+//            一番小さいときは元のサイズの0.6倍になる
             self.scoreLabel.transform = CGAffineTransform(scaleX: 0.6, y: 0.6)
 
         }) { (isFinished) in
-
+//  元の大きさに戻すときのアニメーション
             UIView.animate(withDuration: 1.0, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 0.5, options: [.repeat], animations: {
-                
+// 元のサイズに戻す
                 self.scoreLabel.transform = CGAffineTransform.identity
                 
             })
         }
-                
+//                間違えた問題のnumberがArrayに入っている
         if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
             
             //            incorrectArr.count
             
             // "4/ 5"
             scoreLabel.text = "\(25 - incorrectArr.count)/ 25"
-            
+//            25問−間違えた問題の数
             let correctCount = 25 - incorrectArr.count
             
             if correctCount == 0 {
@@ -53,7 +52,9 @@ class ScoreViewController: UIViewController {
                scorecomment.text = "ガオー！！！"
                 
             }
-                
+//                ＆＆：＆(2つの条件を同時に満たすとき
+//  correctCount >= 1 ：１以上
+//  correctCount > 1 ：１より大きい
             else if correctCount >= 1 && correctCount <= 5 {
                 //                高尾山
                 mountainimage.image = UIImage.init(named: "takaozan")
@@ -98,11 +99,7 @@ class ScoreViewController: UIViewController {
                 scorecomment.text = "標高8848ｍ。\n天才ですか！！？\nあんたが大将。Mr.チョモランマ。"
                 
             }
-            else {
-                print("")
-            }
         }
-        
     }
         
 }
