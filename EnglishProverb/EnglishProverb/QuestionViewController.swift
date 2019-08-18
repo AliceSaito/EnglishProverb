@@ -5,26 +5,21 @@
 //  Created by ALICE SAITO on 2019/07/18.
 //  Copyright © 2019 ALICE SAITO. All rights reserved.
 //
-
+//UIkitはアップルが用意したコードのパッケージ
 import UIKit
 
-
+// storyboardとソースコードをつなげるため
+// 問題を表示させるためのViewController
 class QuestionViewController: UIViewController {
-    
-    var questionIndex: Int = 0
-    // 
+//    100 という値は適当。MainViewControllerのprepareで直前に値を書き換えるので、ここはどんな値を入れてもOK。
+    var questionIndex: Int = 100
+    // ProverbModelの変数名がquestionPageModel
     var questionPageModel: ProverbModel?
     
-//    var isRetest: Bool = false
-    // 今表示させている諺がどんなArrayからの諺か
-    // 例1）通常の諺 25問の中での一つか
-    // 例2）間違った問題の中での一つか
+
+// currentProverbModelArrは全25問の入っているArrayにも、間違えた問題だけが入っているArrayにもなれる。これは、AnswerViewControllerからScoreViewControllerに飛ぶときにも必要なので、この変数名をもつ。
     var currentProverbModelArr: [ProverbModel] = []
-    
-//    var normalProverbModelArr: [ProverbModel] = []
-//    var retestProverbModelArr: [ProverbModel] = [] 
-    
-    // Storyboard上で移動される直前ViewControllerに変数を渡す(設定)ため
+//   サブクラスがもっているfuncを呼び出す（使う）ときにoverrideが使われる。
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let answerViewController = segue.destination as? AnswerViewController
@@ -61,7 +56,7 @@ class QuestionViewController: UIViewController {
     }
     
     
-    
+//    overrideのあとにはsuperが来る！
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -70,52 +65,62 @@ class QuestionViewController: UIViewController {
         let questionEn = questionPageModel?.questionEn ?? ""
         let correct = questionPageModel?.correct ?? ""
         
-        // 英語問題の全文をAttributedStringで定義
+        // AttributedStringは文字の色やフォント、サイズなどを指定できるすごいstring
+//        全部をすごいstringにして、一部だけを黒塗りにする。
         let attributedString = NSMutableAttributedString(string: questionEn)
-        // 英語問題の全文のはスタート時点を変数に保存
+       
+        // 対象となる文章全体のスタート地点と最終地点を指定してあげる。
+//        regularExpression：探す方法を指定できる。
+//        whileは条件付きのfor文。
         var startIndex = questionEn.startIndex
-        // 英語問題の全文の 正解文言
         while let range = questionEn.range(of: correct, options: .regularExpression, range: startIndex..<questionEn.endIndex) {
-            
+//            range＝範囲。下記は変更内容の詳細。
             attributedString.addAttribute(.backgroundColor, value: UIColor.black, range: NSRange(range, in: questionEn))
+//startIndexを最初はquestionEn.startIndexに指定するんだけど、対象の部分が見つかったらrange.upperBoundに変えることで検索を終了させる。
             startIndex = range.upperBound
         }
 
+//        proverbLabel.text = ""のattributedStringバージョンが下記。
+//        attributedStringはストーリーボードのLabelでも変更できる。
         proverbLabel.attributedText = attributedString
         
-        // 選択肢をランダムに順序を変える
+        // 選択肢をランダムに入れ替える
         if var anArray = questionPageModel?.answers {
             
-            //shuffleする
+            //shuffleする。 「..<」は「●〜●」の意味。
             for i in 0 ..< anArray.count {
                 let r = Int(arc4random_uniform(UInt32(anArray.count)))
                 anArray.swapAt(i, r)
             }
-            
+//         Lableには.textを使うように、buttonには.setTitleを使う。buttonはstateを指定する必要がある。
+//            下記のものに、上記の処理を加える。
             aButton.setTitle(anArray[0], for: UIControl.State.normal)
             bButton.setTitle(anArray[1], for: UIControl.State.normal)
             cButton.setTitle(anArray[2], for: UIControl.State.normal)
         }
         
     }
-
+// 正解か不正解をチェックするためのfunc。
     func checkCorrect(tappedButton: UIButton) {
         
-        // 正解判断
+        // correctと比較するために、タップしたボタンに入っている文字を取得する。questionという変数で保存。
         let question = tappedButton.title(for: UIControl.State.normal)
         
+//変数questionの文字と、correctの文字が合っているかを照合。
         if questionPageModel?.correct == question {
             // 正解の場合はここに入る
             // 1. ⭕️ボタンのイメージを設定する
-            // 2. ⭕️ボタンを表示する
+            // 2. ⭕️ボタンを表示する↓
             resultButton.setBackgroundImage(UIImage.init(named: "maru"), for: UIControl.State.normal)
             // Boolenとは trueかfalseこの二つのタイプしか設定できないデータタイプ
             // 例）let varlue： Bool ＝ true
             resultButton.isHidden = false
         
-            // 再テストで不正解だった問題が正解になった時
-            let proverbModel =  self.questionPageModel!//currentProverbModelArr[questionIndex]
+            // 再テストで不正解だった問題が正解になった時に照合するためにある。
+            let proverbModel =  self.questionPageModel!
 
+//     UserDefaultsのタイプはいつもAnyで出るので、Arrayの値がStringだったら、{}の中の処理が行われる。
+//            as「〜として」の意味。
             if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
                 // 例えば不正解のindexが　こんな感じで[1, 2, 4]保存されたとする
@@ -139,23 +144,25 @@ class QuestionViewController: UIViewController {
 
             resultButton.setBackgroundImage(UIImage.init(named: "batsu"), for: UIControl.State.normal)
             resultButton.isHidden = false
-
-            let proverbmodel = currentProverbModelArr[questionIndex]
-            let questionNumber = proverbmodel.number
+            
+//間違えた問題のnumberをUserdefaultsに保存させるためにquestionPageModel.numberを参照する
+            let questionNumber = self.questionPageModel!.number
             
             // 不正解の時問題のIndexをArrayに入れてUserDefaultに保存する
             
-            // 以前UserDefaultに保存された不正解のArrayがある場合既存のArrayに今のnumberを追加(append)する
+    //以前UserDefaultに保存された不正解のnumberが入っているArrayがある場合、既存のArrayに今のnumberを追加(append)する。問２、問３と積み重なっていく。
             if var oldIncorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
                 
                 // 以前間違ったnumberがoldIncorrectArrに保存されていたらこのnumberは追加しない
+//                （ex.問３を立て続けに２回間違えたとき、同じ問３が２回Arrayに入らないように）
                 if oldIncorrectArr.contains(questionNumber) == false {
                     
                     oldIncorrectArr.append(questionNumber)
                     UserDefaults.standard.set(oldIncorrectArr, forKey: "Incorrectagain")
                 }
             }
-            // UserDefaultに不正解のArrayが保存されていない場合
+            // UserDefaultに不正解のArrayが保存されていない場合。
+//            一回も不正解がない場合。新しいArrayをつくって、そこに保存する。
             else {
                 var incorrectArr: Array<String> = []
                 incorrectArr.append(questionNumber)

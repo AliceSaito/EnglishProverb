@@ -49,10 +49,11 @@ class MainViewController: UIViewController {
 //          for文を使ってkotowazaという変数でproverbsというArrayの中を見る
 //        proverbのArrayの中にはdictonaryがたくさん入っている。
 //        dictonaryはkeyとvalueの形式でデータを保存する
+        proverbModelArr = []
         for kotowaza in proverbs {
             print(kotowaza)
             
-//          initはクラス(設計図)からオブジェクト(建物)を生成するために使うファンクション
+//          initはクラス(たい焼きの焼型)からオブジェクト(たい焼き)を生成するために使うファンクション
             let choco = ProverbModel.init()
 //          key＝"question_en"を使って、value＝"Birds of a feather flock together."を取得する
             choco.questionEn = kotowaza["question_en"] ?? ""
@@ -73,7 +74,7 @@ class MainViewController: UIViewController {
 // 再テストのときに、UserDefaultsに保存した不正解のnumberの数が０より多いとき、隠れていた「間違えた問題だけ復習」ボタンを表示する
         if let incorrectArr = UserDefaults.standard.value(forKey: "Incorrectagain") as? Array<String> {
             
-            if incorrectArr.count > 0 {
+             if incorrectArr.count > 0 {
                 
                 repeatButton.isHidden = false
             }
@@ -136,24 +137,13 @@ class MainViewController: UIViewController {
                     }
                 }
 //                間違った問題だけが入っているArray
-                vc?.currentProverbModelArr = incorrectProverbArray
+//2つの問題の値を比較して、小さい順に並べ替える。それをコンピューターが何度も繰り返して、最終的には正しい順番で表示される。
+                vc?.currentProverbModelArr = incorrectProverbArray.sorted(by: { (model1, model2) -> Bool in
+                    
+                    return Int(model1.number)! < Int(model2.number)!
+                })
 
             }
-            
-            
         }
-        
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destination.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
 }

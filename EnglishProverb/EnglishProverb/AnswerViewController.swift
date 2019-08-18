@@ -10,17 +10,15 @@ import UIKit
 
 class AnswerViewController: UIViewController {
 
+//    0という値は適当。QuestionViewControllerのprepareで直前に値を書き換えるので、ここはどんな値を入れてもOK。
     var answerIndex: Int = 0
     var answerPageModel: ProverbModel?
     // 今表示させている諺がどんなArrayからの諺か
     // パターン1）メイン画面から"スタート"ボタンが押された時は25問のArrayが設定される
     // パターン2）メイン画面から"間違えた"ボタンが押された時は間違えた問題のArrayが設定される
     var currentProverbModelArr: [ProverbModel] = []
-    
-//    var normalProverbModelArr: [ProverbModel] = []
-//    var retestProverbModelArr: [ProverbModel] = []
-//    var isRetest: Bool = false
-    
+    //    weak:outletに自動的につく。
+//    outlet：outlet以外にも＠がついているものは、storyboardと繋がっているという意味。
     @IBOutlet weak var jTranslation: UILabel!
     @IBOutlet weak var answer: UILabel!
     @IBOutlet weak var explain: UILabel!
@@ -28,85 +26,46 @@ class AnswerViewController: UIViewController {
     // Nextボタンをタップした時
     @IBAction func nextQuestion(_ sender: Any) {
 
-        print(answerIndex)
-        print(currentProverbModelArr.count)
-        
         // 最後のindexだったらScore画面に移動させる
+//currentProverbModelArrの数は場合によって違う。25問のときもあるし、間違えた問題の数のときもある。
         if answerIndex == currentProverbModelArr.count - 1  {
             
             self.performSegue(withIdentifier: "goToScoreSegue", sender: nil)
             
         } else {
-            
+//            senderは次のアクションに何か渡したいときに書くが、今回はないのでnilを入れる。
             self.performSegue(withIdentifier: "backToQSegue", sender: nil)
+            
         }
     }
-    
-    @IBAction func swipeGestureAction(_ sender: Any) {
-        print("swipe")
-    }
-    @IBOutlet var swipeGesture: UISwipeGestureRecognizer!
-    
-    
+        
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-        let vc = segue.destination as? QuestionViewController
+        let nextQuestionViewController = segue.destination as? QuestionViewController
         
-        let nextPage = answerIndex+1
+        let nextIndex = answerIndex + 1
 
-        if nextPage < currentProverbModelArr.count {
+        if nextIndex < currentProverbModelArr.count {
             
-            vc?.questionIndex = nextPage
+            nextQuestionViewController?.questionIndex = nextIndex
 
-            let nextProverbModel = currentProverbModelArr[nextPage]
-            vc?.questionPageModel = nextProverbModel
-            vc?.currentProverbModelArr = self.currentProverbModelArr
+//            nextIndexを使って全問の中から、次の問題の詳細を取得する
+            nextQuestionViewController?.questionPageModel = currentProverbModelArr[nextIndex]
+//  次の画面（QuestionViewController）に詳細を渡すため
+            nextQuestionViewController?.currentProverbModelArr = self.currentProverbModelArr
 
         }
         
     }    
-    
+//    viewDidLoad：新しい画面が生成されるときに呼ばれる
     override func viewDidLoad() {
+//        サブクラスがもっている変数、ファンクションを見るときsuperを使う
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
-//    参照用
-//        proverbLabel.text = questionPageModel?.questionJp
-//
-//        aButton.setTitle(questionPageModel?.answers[0], for: UIControl.State.normal)
-//        bButton.setTitle(questionPageModel?.answers[1], for: UIControl.State.normal)
-//        cButton.setTitle(questionPageModel?.answers[2], for: UIControl.State.normal)
-        
-
-//            "question_en": "Birds of a feather flock together.",
-//            "question_jp": "類は友を呼ぶ",
-//            "answer_a": "flock",
-//            "answer_b": "gather",
-//            "answer_c": "crowd",
-//            "correct": "flock",
-//            "explanation": "“a feather”は一つの羽・同じ羽を意味し、“flock”は「群がる」の意味です。「同じ羽の鳥（同じ種類の鳥）は一緒に群れる」という意味となります。"
- 
-        
-        // これはQuestionViewControllerで定義されているUILabelの変数名です。
-        // proverbLabel.text = questionPageModel?.question_jp
-        
+        // これ👇はQuestionViewControllerで定義されているUILabelの変数名です。
         // AnswerViewControllerでのUILabelの変数名は
         self.jTranslation.text = answerPageModel?.questionJp
         self.answer.text = answerPageModel?.correct
         self.explain.text = answerPageModel?.explanation
     }
-    
-
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
