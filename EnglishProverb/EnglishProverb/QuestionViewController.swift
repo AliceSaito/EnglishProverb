@@ -15,22 +15,9 @@ class QuestionViewController: UIViewController {
     var questionIndex: Int = 100
     // ProverbModelの変数名がquestionPageModel
     var questionPageModel: ProverbModel?
-    
-
 // currentProverbModelArrは全25問の入っているArrayにも、間違えた問題だけが入っているArrayにもなれる。これは、AnswerViewControllerからScoreViewControllerに飛ぶときにも必要なので、この変数名をもつ。
     var currentProverbModelArr: [ProverbModel] = []
-//   サブクラスがもっているfuncを呼び出す（使う）ときにoverrideが使われる。
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let answerViewController = segue.destination as? AnswerViewController
-
-        answerViewController?.answerIndex = self.questionIndex
-        answerViewController?.answerPageModel = self.questionPageModel
-        answerViewController?.currentProverbModelArr = self.currentProverbModelArr
-        
-    }
     
-
     @IBOutlet weak var resultButton: UIButton!
     @IBOutlet weak var indexLabel: UILabel!
     @IBOutlet weak var proverbLabel: UILabel!
@@ -54,7 +41,17 @@ class QuestionViewController: UIViewController {
         print("touchC")
         checkCorrect(tappedButton: sender)
     }
-    
+
+//   サブクラスがもっているfuncを呼び出す（使う）ときにoverrideが使われる。
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let answerViewController = segue.destination as? AnswerViewController
+
+        answerViewController?.answerIndex = self.questionIndex
+        answerViewController?.answerPageModel = self.questionPageModel
+        answerViewController?.currentProverbModelArr = self.currentProverbModelArr
+        
+    }
     
 //    overrideのあとにはsuperが来る！
     override func viewDidLoad() {

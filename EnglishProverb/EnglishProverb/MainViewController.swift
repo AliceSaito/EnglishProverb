@@ -12,7 +12,7 @@ import UIKit
 //最初に開くページ。最初は再テストボタンは隠されている、２回目以降表示
 class MainViewController: UIViewController {
     
-//    「間違った問題だけふ復習」ボタン
+//    「間違った問題だけ復習」ボタン
     @IBOutlet weak var repeatButton: UIButton!
 //    熊のアニメーションを表示する
     @IBOutlet weak var kumaImageView: UIImageView!
